@@ -69,6 +69,7 @@ if __name__ == "__main__":
         ssn_conf['instance_name'] = '{}-ssn'.format(ssn_conf['service_base_name'])
         ssn_conf['region'] = os.environ['aws_region']
         ssn_conf['zone_full'] = os.environ['aws_region'] + os.environ['aws_zone']
+        ssn_conf['zone_az'] = os.environ['aws_zone']
         ssn_conf['ssn_image_name'] = os.environ['aws_{}_image_name'.format(os.environ['conf_os_family'])]
         ssn_conf['ssn_ami_id'] = datalab.meta_lib.get_ami_id(ssn_conf['ssn_image_name'])
         ssn_conf['policy_path'] = '/root/files/ssn_policy.json'
@@ -159,7 +160,8 @@ if __name__ == "__main__":
                                                                      ssn_conf['tag_name'],
                                                                      ssn_conf['service_base_name'],
                                                                      '20', True,
-                                                                     ssn_conf['zone_full'], ssn_conf['subnet_name'])
+                                                                     ssn_conf['zone_az'],
+                                                                     ssn_conf['subnet_name'])
             try:
                 subprocess.run("~/scripts/{}.py {}".format('common_create_subnet', params), shell=True, check=True)
             except:

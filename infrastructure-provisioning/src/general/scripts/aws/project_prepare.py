@@ -106,6 +106,7 @@ if __name__ == "__main__":
         project_conf['network_type'] = os.environ['conf_network_type']
         project_conf['all_ip_cidr'] = '0.0.0.0/0'
         project_conf['zone'] = os.environ['aws_region'] + os.environ['aws_zone']
+        project_conf['zone-az'] = os.environ['aws_zone']
         project_conf['elastic_ip_name'] = '{0}-{1}-{2}-edge-static-ip'.format(project_conf['service_base_name'],
                                                                               project_conf['project_name'],
                                                                               project_conf['endpoint_name'])
@@ -188,7 +189,7 @@ if __name__ == "__main__":
                   project_conf['vpc2_id'], project_conf['tag_name'], project_conf['service_base_name'],
                   project_conf['private_subnet_prefix'], os.environ['conf_user_subnets_range'],
                   project_conf['private_subnet_name'],
-                  project_conf['zone'])
+                  project_conf['zone-az'])
         try:
             subprocess.run("~/scripts/{}.py {}".format('common_create_subnet', params), shell=True, check=True)
         except:

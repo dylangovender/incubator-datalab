@@ -156,7 +156,8 @@ def build_ui():
                     '\'use_ldap\': false'))
         conn.sudo('rm -rf {}sources/services/self-service/src/main/resources/webapp/node_modules'.format(
             args.datalab_path))
-        conn.sudo('bash -c "cd {}sources/services/self-service/src/main/resources/webapp/ && echo "N" | npm install"'.format(args.datalab_path))
+        #conn.sudo('bash -c "cd {}sources/services/self-service/src/main/resources/webapp/ && echo "N" | npm install"'.format(args.datalab_path))
+        conn.sudo('bash -c "cd {}sources/services/self-service/src/main/resources/webapp/ && echo "N" | npm cache clean --force | NODE_OPTIONS=--max_old_space_size=1500 npm install --legacy-peer-deps --force"'.format(args.datalab_path))
         manage_npm_pkg('bash -c "cd {}sources/services/self-service/src/main/resources/webapp/ && npm run build.prod"'.format(args.datalab_path))
         conn.sudo('sudo chown -R {} {}/*'.format(args.os_user, args.datalab_path))
 
